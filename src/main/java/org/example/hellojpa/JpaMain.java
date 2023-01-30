@@ -160,11 +160,21 @@ public class JpaMain {
 //            em.close();
 
             /** @Enumerated 확인 */
-            Member member = new Member();
-            member.setId(1L);
-            member.setRoletype(Roletype.USER);
+//            Member member = new Member();
+//            member.setId(1L);
+//            member.setRoletype(Roletype.USER);
+//
+//            em.persist(member);
 
+            /** @GeneratedValue  */
+            Member member = new Member();
+            member.setUsername("C");
+
+            System.out.println("=============");
             em.persist(member);
+            System.out.println("member.getId() = " + member.getId());
+            System.out.println("=============");
+
 
             tx.commit();
         } catch (Exception e) {

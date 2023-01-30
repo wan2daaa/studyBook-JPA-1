@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Temporal;
@@ -16,21 +17,35 @@ import javax.persistence.Transient;
 @Entity
 public class Member {
 
-    @Id
+    /**
+     * Todo 7. 식별자 전략
+     * 권장 : Long 타입 + 대체키(자연키 x) + 키 생성전략 사용
+     */
+    @Id @GeneratedValue
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String username;
 
     private Integer age;
 
     /**
+     * TODO 6-1 : 엔티티 매핑 - ENUM
      * @Enumerated (EnumType.ORDINAL) enum 의 위치 번호 대로 db에 전송
      * @Enumerated (EnumType.STRING) enum의 자체 이름 값으로 db에 전송
      */
     @Enumerated(EnumType.STRING)
     private Roletype roletype;
 
+    /**
+     * Todo 6-2 : 엔티티 매핑 - @Temporal
+     * 날짜 관련
+     *  - TIMESTAMP : 날짜 시간
+     *  - TIME , DATE
+     *
+     *  TEMPORAL 대신 LocalDateTime, LocalDate 로 처리 가능
+     *
+     */
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
@@ -40,12 +55,22 @@ public class Member {
     private LocalDate testLocalDate;
     private LocalDateTime testLocalDateTime;
 
+    /**
+     * Todo 6-3 @Lob
+     * 구조화되지 않은 대형 데이터
+     * - CLob : 문자열 ex)
+     * - BLob : 이진 대형 객체 ex) 이미지, 동영상, 노래..
+     *
+     */
     @Lob
     private String description;
 
+    /**
+     * Todo 6-4 @Transient
+     *  엔티티 객체의 데이터와 테이블의 컬럼(column)과 매핑하고 있는 관계를 제외하는 어노테이션
+     */
     @Transient
     private int temp;
-
 
     public Long getId() {
         return id;
@@ -93,6 +118,22 @@ public class Member {
 
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public LocalDate getTestLocalDate() {
+        return testLocalDate;
+    }
+
+    public void setTestLocalDate(LocalDate testLocalDate) {
+        this.testLocalDate = testLocalDate;
+    }
+
+    public LocalDateTime getTestLocalDateTime() {
+        return testLocalDateTime;
+    }
+
+    public void setTestLocalDateTime(LocalDateTime testLocalDateTime) {
+        this.testLocalDateTime = testLocalDateTime;
     }
 
     public String getDescription() {
