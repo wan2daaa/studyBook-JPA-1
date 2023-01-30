@@ -18,7 +18,7 @@ import javax.persistence.Transient;
 public class Member {
 
     /**
-     * Todo 7. 식별자 전략
+     * Todo 6. 식별자 전략
      * 권장 : Long 타입 + 대체키(자연키 x) + 키 생성전략 사용
      */
     @Id @GeneratedValue
